@@ -1,0 +1,136 @@
+
+/*
+ * Colors
+ */
+
+.bg-teal-200 {
+	background-color: #80CBC4;
+}
+
+.bg-teal-300 {
+	background-color: #4DB6AC;
+}
+
+.bg-teal-400 {
+	background-color: #26A69A;
+}
+
+.bg-teal-800 {
+	background-color: #00695C;
+}
+
+.bg-teal-900 {
+	background-color: #004D40;
+}
+
+/*
+ * Shadows
+ */
+
+.shadow-1 {
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.shadow-2 {
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.shadow-3 {
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.shadow-4 {
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.shadow-5 {
+	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);;
+}
+
+/*
+ * Elements
+ */
+
+* {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+	font-family: Roboto, sans-serif;
+}
+
+.whitetext {
+	font-size: 14pt;
+	color: white;
+	opacity: 87%;
+}
+
+.blacktext {
+	font-size: 14pt;
+	color: black;
+	opacity: 87%;
+}
+
+.mat-box {
+	display: inline-block;
+	height: 36px;
+	min-width: 88px;
+	margin: 6px 8px 6px 8px;
+	line-height: 36px;
+	border-radius: 2px;
+	text-align: center;
+	background-color: #E0F2F1; /* teal 50 */
+}
+
+.mat-box.matbutton {
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); /* shadow 2 */
+	transition: box-shadow 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mat-box.matbutton.mini {
+	min-width: 36px;
+}
+
+.matbutton:active {
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); /* shadow 4 */
+}
+
+table {
+	width: 100%;
+}
+
+input.metronome-bpm {
+	width: 88px;
+	min-width: 88px;
+}
+
+/*
+ * Structure
+ */
+
+.section {
+	width: 33%;
+	vertical-align: top;
+}
+
+.section.drone {
+	text-align: left;
+}
+
+.section.key {
+	text-align: center;
+}
+
+.section.metronome {
+	text-align: right;
+}
+
+
+
+table.section-table {
+	display: inline;
+	text-align: center;
+}
+
+.section-header {
+	/* empty right now but may be useful later */
+}
