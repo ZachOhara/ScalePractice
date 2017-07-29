@@ -83,7 +83,7 @@
 
 .mat-box.matbutton {
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); /* shadow 2 */
-	transition: box-shadow 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: 0.05s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mat-box.matbutton.mini {
@@ -92,6 +92,7 @@
 
 .matbutton:active {
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); /* shadow 4 */
+	background-color: #80CBC4;
 }
 
 table {
