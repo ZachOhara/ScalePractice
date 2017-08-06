@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css"/>
 	<title>Scale Practice</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<!-- This field is not visible, but is used to transfer data between scripts -->
+	<input type="number" id="meta-detected-frequency" style="display: none;">
+	<input type="number" id="meta-cents-out">
+	<input type="text" id="meta-note">
 </head>
 <body class="bg-teal-800">
 <table>
@@ -14,6 +18,14 @@
 		<table class="section-table">
 		<tr><td class="whitetext section-header">
 			Drone
+		</td></tr>
+		<tr><td>
+			<select class="blacktext mat-box">
+				<option value="tonic">Tonic</option>
+				<option value="follow">Follow</option>
+				<option value="interval">Interval</option>
+				<option value="chorale">Chorale</option>
+			</select>
 		</td></tr>
 		<tr><td>
 			<div class="blacktext mat-box matbutton">
@@ -37,8 +49,8 @@
 			Key
 		</td></tr>
 		<tr><td>
-			<select class="blacktext mat-box">
-				<option value="c">C</option>
+			<select id="key-select" class="blacktext mat-box">
+				<!-- It is much easier here to just populate with javascript -->
 			</select>
 		</td></tr>
 		</table>
@@ -51,6 +63,11 @@
 		</td></tr>
 		<tr><td>
 			<input type="number" name="metronome-bpm" value="50" class="blacktext mat-box metronome-bpm">
+		</td></tr>
+		<tr><td>
+			<div class="blacktext mat-box matbutton">
+				Start
+			</div>
 		</td></tr>
 		<tr><td>
 			<div class="blacktext mat-box matbutton mini">
@@ -66,4 +83,9 @@
 	</tr>
 </table>
 </body>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="tuner.js"></script>
+	<script type="text/javascript" src="mic_interface.js"></script>
+</head>
 </html>
