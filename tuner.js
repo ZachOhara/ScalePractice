@@ -76,10 +76,6 @@ $('#meta-detected-frequency').change(function() {
 
 	$("#meta-note").val(closestNote);
 	$("#meta-note").change();
-
-	// test output, just for now
-	console.log(centsOutOfTune);
-
 })
 
 for (var i = 0; i < KEYS.length; i++) {

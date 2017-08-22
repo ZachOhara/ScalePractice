@@ -1,7 +1,6 @@
 
-// both of the following constants are the maximum allowed values
-var BUFFER_SIZE = 16384; // 2^14
-var FFT_OUTPUT_SIZE = 32768; // 2^15
+var BUFFER_SIZE = 1024; // max allowed is 2^14 (16384)
+var FFT_OUTPUT_SIZE = 32768; // 2^15, maximum allowed
 
 // multi-browser support is a bitch
 window.AudioContext = window.AudioContext ||
@@ -33,7 +32,6 @@ var getResultsFFT = function () {
 		}
 		var max = Math.max(...array);
 		var maxIndex = array.indexOf(max);
-		//console.log(maxIndex);// + ", " + nonZeroCount);
 
 		var frequency = calculateFrequency(maxIndex);
 
