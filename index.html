@@ -6,86 +6,101 @@
 	<link rel="stylesheet" type="text/css" href="style.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<!-- This field is not visible, but is used to transfer data between scripts -->
-	<input type="number" id="meta-detected-frequency" style="display: none;">
-	<input type="number" id="meta-cents-out">
-	<input type="text" id="meta-note">
+	<input type="number" id="meta-detected-frequency" class="hidden">
+	<input type="text" id="meta-note" class="hidden">
+	<input type="number" id="meta-cents-out" class="hidden">
 </head>
 <body class="bg-teal-800">
 <table>
-	<tr>
+	<tr><td>
+		<table id="control-section-table"><tr>
+			<td class="control-section drone">
+				<table>
+				<tr><td class="whitetext section-header">
+					Drone
+				</td></tr>
+				<tr><td>
+					<select class="blacktext mat-box">
+						<option value="tonic">Tonic</option>
+						<option value="follow">Follow</option>
+						<option value="interval">Interval</option>
+						<option value="chorale">Chorale</option>
+					</select>
+				</td></tr>
+				<tr><td>
+					<div class="blacktext mat-box matbutton">
+						Start
+					</div>
+				</td></tr>
+				<tr><td>
+					<div class="blacktext mat-box matbutton mini">
+						8vb
+					</div>
+					<div class="blacktext mat-box matbutton mini">
+						8va
+					</div>
+				<tr><td>
+				</table>
+			</td>
 
-	<td class="section drone">
-		<table class="section-table">
-		<tr><td class="whitetext section-header">
-			Drone
-		</td></tr>
-		<tr><td>
-			<select class="blacktext mat-box">
-				<option value="tonic">Tonic</option>
-				<option value="follow">Follow</option>
-				<option value="interval">Interval</option>
-				<option value="chorale">Chorale</option>
-			</select>
-		</td></tr>
-		<tr><td>
-			<div class="blacktext mat-box matbutton">
-				Start
-			</div>
-		</td></tr>
-		<tr><td>
-			<div class="blacktext mat-box matbutton mini">
-				8vb
-			</div>
-			<div class="blacktext mat-box matbutton mini">
-				8va
-			</div>
-		<tr><td>
-		</table>
-	</td>
+			<td class="control-section key">
+				<table>
+				<tr><td class="whitetext section-header">
+					Key
+				</td></tr>
+				<tr><td>
+					<select id="key-select" class="blacktext mat-box">
+						<!-- It is much easier here to just populate with javascript -->
+					</select>
+				</td></tr>
+				</table>
+			</td>
 
-	<td class="section key">
-		<table class="section-table">
-		<tr><td class="whitetext section-header">
-			Key
-		</td></tr>
-		<tr><td>
-			<select id="key-select" class="blacktext mat-box">
-				<!-- It is much easier here to just populate with javascript -->
-			</select>
-		</td></tr>
-		</table>
-	</td>
+			<td class="control-section metronome">
+				<table>
+				<tr><td class="whitetext section-header">
+					Metronome
+				</td></tr>
+				<tr><td>
+					<input type="number" id="metronome-bpm" value="50" class="blacktext mat-box">
+				</td></tr>
+				<tr><td>
+					<div id="metronome-toggle-button" class="blacktext mat-box matbutton">
+						Start
+					</div>
+				</td></tr>
+				<tr><td>
+					<div id="metronome-down-button" class="blacktext mat-box matbutton mini">
+						-5
+					</div>
+					<div id="metronome-up-button" class="blacktext mat-box matbutton mini">
+						+5
+					</div>
+				</td></tr>
+				</table>
+			</td>
+		</tr></table>
+	</td></tr>
+	<tr><td>
+		<canvas id="tuner-canvas"></canvas>
+	</td></tr>
+	<tr><td id="tuner-option-section">
+		<span class="whitetext section-header">Temperament</span>
+		<select class="blacktext mat-box">
+			<option value="equal">Equal</option>
+			<option value="just">Just</option>
+		</select>
+	</td></tr>
 
-	<td class="section metronome">
-		<table class="section-table">
-		<tr><td class="whitetext section-header">
-			Metronome
-		</td></tr>
-		<tr><td>
-			<input type="number" name="metronome-bpm" value="50" class="blacktext mat-box metronome-bpm">
-		</td></tr>
-		<tr><td>
-			<div class="blacktext mat-box matbutton">
-				Start
-			</div>
-		</td></tr>
-		<tr><td>
-			<div class="blacktext mat-box matbutton mini">
-				-5
-			</div>
-			<div class="blacktext mat-box matbutton mini">
-				+5
-			</div>
-		</td></tr>
-		</table>
-	</td>
-
-	</tr>
 </table>
+
 </body>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="tuner-draw.js"></script>
 	<script type="text/javascript" src="tuner.js"></script>
+	<script type="text/javascript" src="metronome.js"></script>
 	<script type="text/javascript" src="mic_interface.js"></script>
+	<script type="text/javascript" src="debug.js"></script>
 </head>
 </html>

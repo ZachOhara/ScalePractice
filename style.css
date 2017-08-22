@@ -61,13 +61,21 @@
 .whitetext {
 	font-size: 14pt;
 	color: white;
+	/*
 	opacity: 0.87;
+	*/
 }
 
 .blacktext {
 	font-size: 14pt;
 	color: black;
+	/*
 	opacity: 0.87;
+	*/
+}
+
+.hidden {
+	display: none;
 }
 
 .mat-box {
@@ -78,7 +86,7 @@
 	line-height: 36px;
 	border-radius: 2px;
 	text-align: center;
-	background-color: #E0F2F1; /* teal 50 */
+	background-color: #E5FFFF; /* teal 100 light */
 }
 
 .mat-box.matbutton {
@@ -92,46 +100,61 @@
 
 .mat-box.matbutton:active {
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); /* shadow 4 */
-	background-color: #80CBC4;
+	/* background-color: #80CBC4; /* teal 200 */
+	/* background-color: #4F9A94; /* teal 200 dark */
+	/* background-color: #82ADA9; /* teal 100 dark */
+	background-color: #aebfbe; /* teal 50 dark */
 }
 
 select.mat-box {
 	text-align: left;
 }
 
-table {
-	width: 100%;
-}
-
-input.metronome-bpm {
+input.mat-box {
 	width: 88px;
 	min-width: 88px;
+}
+
+table {
+	width: 100%;
+	border-spacing: 0px;
+}
+
+tr {
+	height: 100%;
+}
+
+td {
+	width: 100%;
+	text-align: center;
+}
+
+canvas#tuner-canvas {
+	margin-bottom: -4px; /* determined experimentally */
 }
 
 /*
  * Structure
  */
 
-.section {
+.control-section {
 	width: 33%;
 	vertical-align: top;
 }
 
-.section.drone {
+.control-section.drone {
 	text-align: left;
 }
 
-.section.key {
+.control-section.key {
 	text-align: center;
 }
 
-.section.metronome {
+.control-section.metronome {
 	text-align: right;
 }
 
-
-
-table.section-table {
+td.control-section table {
 	display: inline;
 	text-align: center;
 }
