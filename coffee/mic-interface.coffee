@@ -25,60 +25,61 @@ audioContext = new AudioContext()
 
 # audio nodes
 
-micSourceNode = null
-fftNode = null
-resultsNode = null
+nodes = {
+	micSource: null,
+	fourier: null,
+	catcher: null,
+}
 
-getFourierResults = ->
-	array = new Uint8Array(fftNode.frequencyBinCount)
-	fftNode.getByteFrequencyData array
-	nonZeroCount = 0;
-	for i in [0...array.length]
-		nonZeroCount += 1 if array[i] != 0
+catchFourierResults = ->
+	array = new Uint8Array(nodes.fourier.frequencyBinCount)
+	nodes.fourier.getByteFrequencyData(array)
+	nonZeroCount = 0
+	for i in array
+		nonZeroCount += 1 if not i == 0
 	max = Math.max(array...)
 	maxIndex = array.indexOf(max)
-
-	frequency = calculateFrequency maxIndex
-
+	frequency = calculateFrequency(maxIndex)
 	$("#meta-detected-frequency").val(frequency)
 	$("#meta-detected-frequency").change()
+	return null
 
 calculateFrequency = (fftBucketIndex) ->
 	# fftBucketIndex will be in [0, FFT_OUTPUT_SIZE - 1]
-	nyquistFreq = audioContext.sampleRate / 2 # TODO in the original js, there is no division
+	nyquistFreq = audioContext.sampleRate # if you divide by 2 here (like you should) it's an 8ve too low
 	bucketStep = nyquistFreq / FFT_OUTPUT_SIZE
 	estFreq = bucketStep * (fftBucketIndex + 0.5)
 	#console.log nyquistFreq, bucketStep, estFreq
+	console.log(estFreq)
 	return estFreq
 
 startMicrophone = (stream) ->
 	# build the source node
 	# browser will block here until user grants microphone permission
-	micSourceNode = audioContext.createMediaStreamSource stream
+	nodes.micSource = audioContext.createMediaStreamSource(stream)
 
 	# build the fft analysis node
-	fftNode = audioContext.createAnalyser()
-	fftNode.smoothingTimeConstant = 0
-	fftNode.fftSize = FFT_OUTPUT_SIZE
+	nodes.fourier = audioContext.createAnalyser()
+	nodes.fourier.smoothingTimeConstant = 0
+	nodes.fourier.fftSize = FFT_OUTPUT_SIZE
 
 	# build the results node, which catches results of the FFT
-	resultsNode = audioContext.createScriptProcessor(BUFFER_SIZE, 1, 1)
-	resultsNode.onaudioprocess = getFourierResults
+	nodes.catcher = audioContext.createScriptProcessor(BUFFER_SIZE, 1, 1)
+	nodes.catcher.onaudioprocess = catchFourierResults
 
 	# connect 'em up
-	micSourceNode.connect fftNode
-	fftNode.connect resultsNode
-	resultsNode.connect audioContext.destination
+	nodes.micSource.connect(nodes.fourier)
+	nodes.fourier.connect(nodes.catcher)
+	nodes.catcher.connect(audioContext.destination)
 
 	# The results node does not output any audio, so the connection
 	# to context.destination is fine. An eventual connection to the
 	# destination is required for any sound data to flow through the chain.
 
-	return 1
-
+	return null
 
 printError = (msg) ->
-	console.log "Error while starting audio: \n#{msg}"
+	console.log("Error while starting audio: \n#{msg}")
 
 mediaRequirements = {
 	audio: true

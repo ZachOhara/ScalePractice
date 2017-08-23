@@ -23,12 +23,12 @@ scaleFrequencies = new Float32Array(SCALE_RATIOS.length)
 notesInKey = []
 
 $("#key-select").change ->
-	newKey = parseInt($(this).val())
+	newKey = parseInt $(this).val()
 	keyTitle = $(this).find(":selected").text()
-	noteIndex = NOTE_NAMES.indexOf(keyTitle.substring(0, 1))
+	noteIndex = NOTE_NAMES.indexOf keyTitle.substring(0, 1)
 
 	# First, reorder the letters for the correct key (no accidentals yet)
-	notesInKey = NOTE_NAMES.slice(noteIndex).concat(NOTE_NAMES.slice(0, noteIndex))
+	notesInKey = NOTE_NAMES.slice(noteIndex).concat(NOTE_NAMES.slice 0, noteIndex)
 	# Add in the accidentals
 	if newKey < 0
 		for i in [0...-1*newKey]
@@ -47,14 +47,14 @@ $("#key-select").change ->
 
 $('#meta-detected-frequency').change ->
 	frequency = $(this).val()
-	while (frequency < scaleFrequencies[0])
+	while frequency < scaleFrequencies[0]
 		frequency *= 2
-	while (frequency > scaleFrequencies[scaleFrequencies.length - 1])
+	while frequency > scaleFrequencies[scaleFrequencies.length - 1]
 		frequency /= 2
 
 	pitchDifferences = []
-	for i in [0...scaleFrequencies.length]
-		pitchDifferences.push(Math.abs((scaleFrequencies[i] / frequency) - 1))
+	for i in scaleFrequencies
+		pitchDifferences.push(Math.abs(i / frequency) - 1)
 	minDifference = Math.min(pitchDifferences...)
 	noteIndex = pitchDifferences.indexOf(minDifference)
 	closestNote = notesInKey[noteIndex]

@@ -47,7 +47,7 @@
   });
 
   $('#meta-detected-frequency').change(function() {
-    var centsOutOfTune, closestNote, frequency, i, j, minDifference, noteIndex, pitchDifferences, ref, semitonesOutOfTune;
+    var centsOutOfTune, closestNote, frequency, i, j, len, minDifference, noteIndex, pitchDifferences, semitonesOutOfTune;
     frequency = $(this).val();
     while (frequency < scaleFrequencies[0]) {
       frequency *= 2;
@@ -56,8 +56,9 @@
       frequency /= 2;
     }
     pitchDifferences = [];
-    for (i = j = 0, ref = scaleFrequencies.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      pitchDifferences.push(Math.abs((scaleFrequencies[i] / frequency) - 1));
+    for (j = 0, len = scaleFrequencies.length; j < len; j++) {
+      i = scaleFrequencies[j];
+      pitchDifferences.push(Math.abs(i / frequency) - 1);
     }
     minDifference = Math.min.apply(Math, pitchDifferences);
     noteIndex = pitchDifferences.indexOf(minDifference);

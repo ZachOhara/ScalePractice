@@ -1,6 +1,6 @@
 
 PORTRAIT_WIDTH = 0.9 # fraction of the available width (usually the width of the window)
-CLEARANCE = 0.95
+CLEARANCE = 0.95 # fraction of the distance that should be used between the other gui elements
 
 canvas = $("#tuner-canvas")
 context = document.getElementById("tuner-canvas").getContext("2d")

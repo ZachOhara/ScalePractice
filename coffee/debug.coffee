@@ -11,13 +11,13 @@ window.setDebug = (mode) ->
 	return null
 
 window.debugOn = ->
-	for i in [0...debugElementIds.length]
-		$("#" + debugElementIds[i]).removeClass "hidden"
+	for i in debugElementIds
+		$("##{i}").removeClass("hidden")
 	return null
 
 window.debugOff = ->
-	for i in [0...debugElementIds.length]
-		$("#" + debugElementIds[i]).addClass "hidden"
+	for i in debugElementIds
+		$("##{i}").addClass("hidden")
 	return null
 
-setDebug DEFAULT
+setDebug(DEFAULT)

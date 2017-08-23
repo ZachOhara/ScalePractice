@@ -16,17 +16,19 @@
   };
 
   window.debugOn = function() {
-    var i, j, ref;
-    for (i = j = 0, ref = debugElementIds.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      $("#" + debugElementIds[i]).removeClass("hidden");
+    var i, j, len;
+    for (j = 0, len = debugElementIds.length; j < len; j++) {
+      i = debugElementIds[j];
+      $("#" + i).removeClass("hidden");
     }
     return null;
   };
 
   window.debugOff = function() {
-    var i, j, ref;
-    for (i = j = 0, ref = debugElementIds.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      $("#" + debugElementIds[i]).addClass("hidden");
+    var i, j, len;
+    for (j = 0, len = debugElementIds.length; j < len; j++) {
+      i = debugElementIds[j];
+      $("#" + i).addClass("hidden");
     }
     return null;
   };

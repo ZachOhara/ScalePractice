@@ -11,7 +11,7 @@ navigator.getUserMedia = navigator.getUserMedia ||
 	navigator.mozGetUserMedia ||
 	navigator.msGetUserMedia;
 ;
-  var BUFFER_SIZE, FFT_OUTPUT_SIZE, audioContext, calculateFrequency, fftNode, getFourierResults, mediaRequirements, micSourceNode, printError, resultsNode, startMicrophone;
+  var BUFFER_SIZE, FFT_OUTPUT_SIZE, audioContext, calculateFrequency, catchFourierResults, mediaRequirements, nodes, printError, startMicrophone;
 
   BUFFER_SIZE = 1024;
 
@@ -19,19 +19,20 @@ navigator.getUserMedia = navigator.getUserMedia ||
 
   audioContext = new AudioContext();
 
-  micSourceNode = null;
+  nodes = {
+    micSource: null,
+    fourier: null,
+    catcher: null
+  };
 
-  fftNode = null;
-
-  resultsNode = null;
-
-  getFourierResults = function() {
-    var array, frequency, i, j, max, maxIndex, nonZeroCount, ref;
-    array = new Uint8Array(fftNode.frequencyBinCount);
-    fftNode.getByteFrequencyData(array);
+  catchFourierResults = function() {
+    var array, frequency, i, j, len, max, maxIndex, nonZeroCount;
+    array = new Uint8Array(nodes.fourier.frequencyBinCount);
+    nodes.fourier.getByteFrequencyData(array);
     nonZeroCount = 0;
-    for (i = j = 0, ref = array.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      if (array[i] !== 0) {
+    for (j = 0, len = array.length; j < len; j++) {
+      i = array[j];
+      if (!i === 0) {
         nonZeroCount += 1;
       }
     }
@@ -39,28 +40,30 @@ navigator.getUserMedia = navigator.getUserMedia ||
     maxIndex = array.indexOf(max);
     frequency = calculateFrequency(maxIndex);
     $("#meta-detected-frequency").val(frequency);
-    return $("#meta-detected-frequency").change();
+    $("#meta-detected-frequency").change();
+    return null;
   };
 
   calculateFrequency = function(fftBucketIndex) {
     var bucketStep, estFreq, nyquistFreq;
-    nyquistFreq = audioContext.sampleRate / 2;
+    nyquistFreq = audioContext.sampleRate;
     bucketStep = nyquistFreq / FFT_OUTPUT_SIZE;
     estFreq = bucketStep * (fftBucketIndex + 0.5);
+    console.log(estFreq);
     return estFreq;
   };
 
   startMicrophone = function(stream) {
-    micSourceNode = audioContext.createMediaStreamSource(stream);
-    fftNode = audioContext.createAnalyser();
-    fftNode.smoothingTimeConstant = 0;
-    fftNode.fftSize = FFT_OUTPUT_SIZE;
-    resultsNode = audioContext.createScriptProcessor(BUFFER_SIZE, 1, 1);
-    resultsNode.onaudioprocess = getFourierResults;
-    micSourceNode.connect(fftNode);
-    fftNode.connect(resultsNode);
-    resultsNode.connect(audioContext.destination);
-    return 1;
+    nodes.micSource = audioContext.createMediaStreamSource(stream);
+    nodes.fourier = audioContext.createAnalyser();
+    nodes.fourier.smoothingTimeConstant = 0;
+    nodes.fourier.fftSize = FFT_OUTPUT_SIZE;
+    nodes.catcher = audioContext.createScriptProcessor(BUFFER_SIZE, 1, 1);
+    nodes.catcher.onaudioprocess = catchFourierResults;
+    nodes.micSource.connect(nodes.fourier);
+    nodes.fourier.connect(nodes.catcher);
+    nodes.catcher.connect(audioContext.destination);
+    return null;
   };
 
   printError = function(msg) {
