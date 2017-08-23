@@ -1,32 +1,42 @@
 
 METRONOME_INCREMENT = 5 # bpm
 
-metronomeIsOn = false
-
 metSpeedField = $("#metronome-bpm")
+click = new Audio("met_click.wav")
+
+metronomeIsOn = false
 
 $("#metronome-toggle-button").click(->
 	if metronomeIsOn
-		stopMetronome()
 		$(this).text("Start")
 	else
-		startMetronome()
 		$(this).text("Stop")
-	
+	metronomeIsOn = !metronomeIsOn
+	updateMetronome()
 )
 
 $("#metronome-up-button").click(->
 	metSpeedField.val(parseInt(metSpeedField.val()) + METRONOME_INCREMENT)
+	metSpeedField.change()
 )
 
 $("#metronome-down-button").click(->
 	metSpeedField.val(parseInt(metSpeedField.val()) - METRONOME_INCREMENT)
+	metSpeedField.change()
 )
 
-startMetronome = ->
-	console.log("starting met")
-	metronomeIsOn = true
+metSpeedField.change(->
+	updateMetronome()
+)
 
-stopMetronome = ->
-	console.log("stopping met")
-	metronomeIsOn = false
+metLoop = null
+
+updateMetronome = ->
+	bpm = metSpeedField.val()
+	clearInterval(metLoop)
+	if metronomeIsOn
+		playMetClick()
+		metLoop = setInterval(playMetClick, 1000 * 60 / bpm)
+
+playMetClick = ->
+	click.play()
